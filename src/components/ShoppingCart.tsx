@@ -12,15 +12,18 @@ class ShoppingCart extends React.Component<Props, State> {
 		super(props)
 		this.state = {
 			isOpen: false,
-		}
+    }
+    this.clickHandle=this.clickHandle.bind(this)
+	}
+  clickHandle(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    this.setState({
+			isOpen: !this.state.isOpen,
+		})
 	}
 	render() {
 		return (
 			<div className={style.cartContainer}>
-				<button
-					className={style.button}
-					onClick={() => this.setState({ isOpen: !this.state.isOpen })}
-				>
+				<button className={style.button} onClick={this.clickHandle}>
 					购物车 (2件)
 				</button>
 				<div
