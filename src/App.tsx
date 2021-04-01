@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import logo from './assets/images/logo.svg'
 import style from './App.module.css'
 // import robots from './mockdata/robots.json'
@@ -11,57 +11,39 @@ interface State {
 	robotGallery: any[]
 }
 
-class App extends React.Component<Props, State> {
-	constructor(props: Props) {
-		super(props)
-		this.state = {
-			count: 0,
-			robotGallery: [],
-		}
-	}
-	componentDidMount() {
+const App: React.FC = (props) => {
+	const [count, setCount] = useState(0)
+	const [robotGallery, setRobotGallery] = useState<any>([])
+	useEffect(() => {
+		document.title = `点击次数${count}`
+	}, [count])
+	useEffect(() => {
 		fetch('https://jsonplaceholder.typicode.com/users')
 			.then((response) => response.json())
-			.then((data) => this.setState({ robotGallery: data }))
-	}
-	render() {
-		return (
-			<div className={style.app}>
-				<div className={style.appHeader}>
-					<img src={logo} alt="logo" className={style.appLogo} />
-					<h1>罗伯特的购物平台名字很长</h1>
-				</div>
-				<button
-					onClick={() => {
-						this.setState(
-							(preState, preProps) => {
-								return { count: preState.count + 1 }
-							},
-							() => {
-								console.log('正确', this.state.count)
-							},
-						)
-						this.setState(
-							(preState, preProps) => {
-								return { count: preState.count + 1 }
-							},
-							() => {
-								console.log('正确', this.state.count)
-							},
-						)
-					}}
-				>
-					{this.state.count}
-				</button>
-				<ShoppingCart />
-				<div className={style.robotList}>
-					{this.state.robotGallery.map((r) => (
-						<Robot key={r.id} id={r.id} name={r.name} email={r.email} />
-					))}
-				</div>
+			.then((data) => setRobotGallery(data))
+	}, [])
+
+	return (
+		<div className={style.app}>
+			<div className={style.appHeader}>
+				<img src={logo} alt="logo" className={style.appLogo} />
+				<h1>罗伯特的购物平台名字很长</h1>
 			</div>
-		)
-	}
+			<button
+				onClick={() => {
+					setCount(count + 1)
+				}}
+			>
+				{count}
+			</button>
+			<ShoppingCart />
+			<div className={style.robotList}>
+				{robotGallery.map((r: any) => (
+					<Robot key={r.id} id={r.id} name={r.name} email={r.email} />
+				))}
+			</div>
+		</div>
+	)
 }
 
 export default App
