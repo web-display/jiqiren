@@ -17,10 +17,19 @@ const App: React.FC = (props) => {
 	useEffect(() => {
 		document.title = `点击次数${count}`
 	}, [count])
+	// 使用promise请求数据
+	// useEffect(() => {
+	// 	fetch('https://jsonplaceholder.typicode.com/users')
+	// 		.then((response) => response.json())
+	// 		.then((data) => setRobotGallery(data))
+	// }, [])
 	useEffect(() => {
-		fetch('https://jsonplaceholder.typicode.com/users')
-			.then((response) => response.json())
-			.then((data) => setRobotGallery(data))
+		const fetchData = async () => {
+			const response = await fetch('https://jsonplaceholder.typicode.com/users')
+			const data = await response.json()
+			setRobotGallery(data)
+		}
+		fetchData()
 	}, [])
 
 	return (
