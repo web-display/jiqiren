@@ -5,9 +5,7 @@ import style from "./App.module.css";
 import Robot from "./components/Robot";
 import ShoppingCart from "./components/ShoppingCart";
 
-interface Props {
-  username: string;
-}
+interface Props {}
 interface State {
   count: number;
   robotGallery: any[];
@@ -51,7 +49,6 @@ const App: React.FC<Props> = (props) => {
         <img src={logo} alt="logo" className={style.appLogo} />
         <h1>罗伯特的购物平台名字很长</h1>
       </div>
-      <h2>{props.username}</h2>
       <button
         onClick={() => {
           setCount(count + 1);
