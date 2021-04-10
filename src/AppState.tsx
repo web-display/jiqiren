@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-interface AppStateValue {
+export interface AppStateValue {
 	username: string
 	shoppingCart: { items: { id: number; name: string }[] }
 }
